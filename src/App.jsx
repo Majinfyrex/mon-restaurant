@@ -1,6 +1,8 @@
 import Header from './components/Header'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import ProductList from './components/ProductList'
+import products from './data/products'
 
 function App() {
   return (
@@ -8,7 +10,7 @@ function App() {
       <Header />
       <Nav />
       <main className="container my-5">
-        <p>Les produits arrivent bientôt...</p>
+        <ProductList products={products} />
       </main>
       <Footer />
     </>

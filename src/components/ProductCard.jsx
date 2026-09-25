@@ -1,0 +1,28 @@
+import Button from './Button'
+import Tag from './Tag'
+
+function ProductCard({ product }) {
+  return (
+    <div className="card h-100">
+      <img src={product.image} className="card-img-top product-img" alt={product.name} />
+      <div className="card-body d-flex flex-column">
+        <div className="d-flex justify-content-between border-bottom pb-2 mb-3">
+          <h5 className="card-title mb-0">{product.name}</h5>
+          <h5 className="mb-0 text-nowrap ms-2">{product.price} €</h5>
+        </div>
+
+        {product.tags.length > 0 && (
+          <div className="d-flex flex-wrap gap-1 border-bottom pb-3 mb-3">
+            {product.tags.map((tag) => (
+              <Tag key={tag} name={tag} />
+            ))}
+          </div>
+        )}
+
+        <Button className="w-100 mt-auto">Ajouter au panier</Button>
+      </div>
+    </div>
+  )
+}
+
+export default ProductCard

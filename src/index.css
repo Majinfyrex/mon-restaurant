@@ -63,3 +63,13 @@ body {
     font-size: 3.5rem;
   }
 }
+
+/* ----- Produits ----- */
+.product-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.tag {
+  padding: 4px 10px;
+}
