@@ -79,3 +79,7 @@ body {
   background-color: #6c757d;
   border-color: #6c757d;
 }
+
+.search-input {
+  max-width: 250px;
+}

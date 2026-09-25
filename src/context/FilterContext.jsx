@@ -6,6 +6,8 @@ const FilterContext = createContext()
 export function FilterProvider({ children }) {
   const [category, setCategory] = useState('')
   const [tag, setTag] = useState('')
+  const [maxPrice, setMaxPrice] = useState('')
+  const [search, setSearch] = useState('')
 
   // si on reclique sur la même catégorie on enlève le filtre
   function selectCategory(newCategory) {
@@ -27,6 +29,8 @@ export function FilterProvider({ children }) {
   function resetFilters() {
     setCategory('')
     setTag('')
+    setMaxPrice('')
+    setSearch('')
   }
 
   // on applique les filtres sur les produits
@@ -37,12 +41,38 @@ export function FilterProvider({ children }) {
     if (tag !== '' && !product.tags.includes(tag)) {
       return false
     }
+    // on garde les produits moins chers ou égal au prix donné
+    if (maxPrice !== '' && product.price > Number(maxPrice)) {
+      return false
+    }
+    // recherche dans le titre, la catégorie et les tags (mots clés)
+    if (search !== '') {
+      const text = search.toLowerCase()
+      const inName = product.name.toLowerCase().includes(text)
+      const inCategory = product.category.toLowerCase().includes(text)
+      const inTags = product.tags.some((t) => t.toLowerCase().includes(text))
+
+      if (!inName && !inCategory && !inTags) {
+        return false
+      }
+    }
     return true
   })
 
   return (
     <FilterContext.Provider
-      value={{ category, tag, selectCategory, selectTag, resetFilters, filteredProducts }}
+      value={{
+        category,
+        tag,
+        maxPrice,
+        search,
+        selectCategory,
+        selectTag,
+        setMaxPrice,
+        setSearch,
+        resetFilters,
+        filteredProducts,
+      }}
     >
       {children}
     </FilterContext.Provider>
