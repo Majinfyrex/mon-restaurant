@@ -1,40 +1,29 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useReducer } from 'react'
+import { cartReducer, initialState } from './cartReducer'
 
 const CartContext = createContext()
 
 export function CartProvider({ children }) {
-  // chaque élément du panier : { id, name, price, quantity }
-  const [items, setItems] = useState([])
+  const [state, dispatch] = useReducer(cartReducer, initialState)
 
   function addToCart(product) {
-    const existingItem = items.find((item) => item.id === product.id)
-
-    if (existingItem) {
-      // le produit est déjà dans le panier, on change juste la quantité
-      setItems(
-        items.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        )
-      )
-    } else {
-      setItems([...items, { id: product.id, name: product.name, price: product.price, quantity: 1 }])
-    }
+    dispatch({ type: 'ADD_TO_CART', payload: product })
   }
 
-  // nombre total d'articles
-  let count = 0
-  items.forEach((item) => {
-    count = count + item.quantity
-  })
-
-  // prix total du panier
-  let total = 0
-  items.forEach((item) => {
-    total = total + item.price * item.quantity
-  })
+  function removeFromCart(product) {
+    dispatch({ type: 'REMOVE_FROM_CART', payload: product })
+  }
 
   return (
-    <CartContext.Provider value={{ items, count, total, addToCart }}>
+    <CartContext.Provider
+      value={{
+        items: state.items,
+        count: state.count,
+        total: state.total,
+        addToCart,
+        removeFromCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   )

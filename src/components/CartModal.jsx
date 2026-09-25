@@ -1,7 +1,7 @@
 import { useCart } from '../context/CartContext'
 
 function CartModal({ onClose }) {
-  const { items, total } = useCart()
+  const { items, total, addToCart, removeFromCart } = useCart()
 
   return (
     <>
@@ -32,7 +32,21 @@ function CartModal({ onClose }) {
                       <tr key={item.id}>
                         <td>{item.name}</td>
                         <td>{item.price} €</td>
-                        <td>{item.quantity}</td>
+                        <td className="text-nowrap">
+                          <button
+                            className="btn btn-sm btn-outline-dark"
+                            onClick={() => removeFromCart(item)}
+                          >
+                            -
+                          </button>
+                          <span className="mx-2">{item.quantity}</span>
+                          <button
+                            className="btn btn-sm btn-outline-dark"
+                            onClick={() => addToCart(item)}
+                          >
+                            +
+                          </button>
+                        </td>
                         <td className="text-end">{item.price * item.quantity} €</td>
                       </tr>
                     ))}

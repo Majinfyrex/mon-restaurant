@@ -3,7 +3,10 @@ import Tag from './Tag'
 import { useCart } from '../context/CartContext'
 
 function ProductCard({ product }) {
-  const { addToCart } = useCart()
+  const { items, addToCart, removeFromCart } = useCart()
+
+  // on cherche si le produit est déjà dans le panier
+  const itemInCart = items.find((item) => item.id === product.id)
 
   return (
     <div className="card h-100">
@@ -22,9 +25,21 @@ function ProductCard({ product }) {
           </div>
         )}
 
-        <Button className="w-100 mt-auto" onClick={() => addToCart(product)}>
-          Ajouter au panier
-        </Button>
+        <div className="mt-auto">
+          <Button className="w-100" onClick={() => addToCart(product)}>
+            Ajouter au panier
+            {itemInCart && <span className="badge bg-primary ms-2">{itemInCart.quantity}</span>}
+          </Button>
+          {itemInCart && (
+            <Button
+              variant="outline-danger"
+              className="w-100 mt-2"
+              onClick={() => removeFromCart(product)}
+            >
+              Retirer du panier
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   )
