@@ -73,3 +73,9 @@ body {
 .tag {
   padding: 4px 10px;
 }
+
+/* catégorie sélectionnée en gris foncé au lieu du bleu */
+.list-group-item.active {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}

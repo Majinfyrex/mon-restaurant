@@ -3,7 +3,6 @@ import Nav from './components/Nav'
 import Footer from './components/Footer'
 import Sidebar from './components/Sidebar'
 import ProductList from './components/ProductList'
-import products from './data/products'
 
 function App() {
   return (
@@ -16,7 +15,7 @@ function App() {
             <Sidebar />
           </div>
           <div className="col-12 col-lg-9">
-            <ProductList products={products} />
+            <ProductList />
           </div>
         </div>
       </main>
