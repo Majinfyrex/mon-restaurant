@@ -1,7 +1,10 @@
 import Button from './Button'
 import Tag from './Tag'
+import { useCart } from '../context/CartContext'
 
 function ProductCard({ product }) {
+  const { addToCart } = useCart()
+
   return (
     <div className="card h-100">
       <img src={product.image} className="card-img-top product-img" alt={product.name} />
@@ -19,7 +22,9 @@ function ProductCard({ product }) {
           </div>
         )}
 
-        <Button className="w-100 mt-auto">Ajouter au panier</Button>
+        <Button className="w-100 mt-auto" onClick={() => addToCart(product)}>
+          Ajouter au panier
+        </Button>
       </div>
     </div>
   )
